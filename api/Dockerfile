@@ -1,0 +1,20 @@
+# [Choice] Node.js version (use -bullseye variants on local arm64/Apple Silicon): 18, 16, 14, 18-bullseye, 16-bullseye, 14-bullseye, 18-buster, 16-buster, 14-buster
+# ARG VARIANT="18-bullseye"
+# FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
+
+# RUN npm install
+# CMD [ "node", "server.js" ]
+
+FROM node:18-alpine
+
+WORKDIR /usr/src/app
+
+COPY package*.json .
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD [ "node", "server.js" ]

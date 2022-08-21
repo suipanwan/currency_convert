@@ -1,0 +1,45 @@
+version: "3"
+
+services:
+  api:
+    container_name: cc_api
+    image: cc_api
+    build:
+      # context: ./api/.devcontainer
+      context: ./api
+      dockerfile: ./Dockerfile
+    volumes:
+      - .:/workspace:cached
+    # command: /bin/sh -c "while sleep 1000; do :; done"
+    networks:
+      - ccNetwork
+    ports:
+      - "3000:3000"
+    environment:
+      - TZ=Asia/Hong_Kong
+  redissever:
+    container_name: cc_redis
+    image: redis
+    volumes:
+      - ./redis/redis-data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - ccNetwork
+  tg_bot:
+    container_name: cc_tg_bot
+    image: cc_tg_bot
+    build:
+      # context: ./tg_bot/.devcontainer
+      context: ./tg_bot
+      dockerfile: ./Dockerfile
+    volumes:
+      - .:/workspace:cached
+    # command: /bin/sh -c "while sleep 1000; do :; done"
+    networks:
+      - ccNetwork
+    environment:
+      - TZ=Asia/Hong_Kong
+networks:
+  ccNetwork:
+    driver: bridge
