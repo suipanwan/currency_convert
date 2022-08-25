@@ -1,3 +1,4 @@
+require('dotenv').config();
 const CronJob = require("node-cron");
 const logger = require('./utils/logger');
 
@@ -31,7 +32,7 @@ async function saveRate(from, to, rate) {
 async function convertFromFixer(from, to, amount) {
   let myHeaders = new Headers();
   myHeaders.append("apikey", process.env.FIXER_API_KEY);
-
+  
   let requestOptions = {
     method: 'GET',
     redirect: 'follow',
@@ -41,7 +42,7 @@ async function convertFromFixer(from, to, amount) {
   try {
     let response = await fetch(`https://api.apilayer.com/fixer/convert?to=${to}&from=${from}&amount=${amount}`, requestOptions);
     response = await response.json();
-    logger.info('CronJob: convertFromFixer Successed');
+    response.result ? logger.info('CronJob: convertFromFixer Successed') : logger.error('CronJob: convertFromFixer Failed');;
     return response.result;
   } catch (error) {
     logger.error('CronJob: convertFromFixer Failed');
