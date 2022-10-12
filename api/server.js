@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 const port = 3000
+const cors = require('cors');
+app.use(cors());
 
 const logger = require('./utils/logger');
 
@@ -9,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const redis = require('redis');
-const rs_client = redis.createClient({ url: 'redis://redissever:6379' });
+const rs_client = redis.createClient({ url: `redis://${process.env.REDIS_URL}:6379` });
 
 rs_client.on('connect', function () {
   logger.info('Redis: Redis Connected');

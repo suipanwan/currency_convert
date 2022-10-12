@@ -1,4 +1,3 @@
-require('dotenv').config();
 const TelegramBot = require('node-telegram-bot-api');
 const API = require('./API/cc_API');
 const logger = require('./utils/logger');
@@ -7,6 +6,11 @@ const token = process.env.TG_BOT_TOKEN;
 const bot = new TelegramBot(token, {
   polling: true, 
   request: {},
+});
+
+// Matches /start
+bot.onText(/\/start/, function onPhotoText(msg) {
+  bot.sendMessage(msg.chat.id,'Welcome! Enter any integer to convert~');
 });
 
 bot.onText(/[0-9]+/, (msg) => {

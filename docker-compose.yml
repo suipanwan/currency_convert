@@ -4,10 +4,12 @@ services:
   api:
     container_name: cc_api
     image: cc_api
+    platform: linux/amd64
     build:
       # context: ./api/.devcontainer
       context: ./api
       dockerfile: ./Dockerfile
+    env_file: ./api/.env
     volumes:
       - .:/workspace:cached
     # command: /bin/sh -c "while sleep 1000; do :; done"
@@ -19,6 +21,7 @@ services:
       - TZ=Asia/Hong_Kong
   redissever:
     container_name: cc_redis
+    # platform: linux/amd64
     image: redis
     volumes:
       - ./redis/redis-data:/data
@@ -28,11 +31,13 @@ services:
       - ccNetwork
   tg_bot:
     container_name: cc_tg_bot
+    platform: linux/amd64
     image: cc_tg_bot
     build:
       # context: ./tg_bot/.devcontainer
       context: ./tg_bot
       dockerfile: ./Dockerfile
+    env_file: ./tg_bot/.env
     volumes:
       - .:/workspace:cached
     # command: /bin/sh -c "while sleep 1000; do :; done"

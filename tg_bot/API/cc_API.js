@@ -5,7 +5,7 @@ module.exports = {
     };
   
     try {
-      const res = await fetch(`http://api:3000/CAD_HKD`, requestOptions);
+      const res = await fetch(`http://${process.env.API_URL}:3000/CAD_HKD`, requestOptions);
       if (res.ok){
         const data = await res.json();
         return data.rate;

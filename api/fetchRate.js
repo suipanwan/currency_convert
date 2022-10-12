@@ -1,4 +1,3 @@
-require('dotenv').config();
 const CronJob = require("node-cron");
 const logger = require('./utils/logger');
 
@@ -16,7 +15,7 @@ async function saveRate(from, to, rate) {
   };
 
   try {
-    const res = await fetch(`http://localhost:3000/${key}`, requestOptions);
+    const res = await fetch(`http://${process.env.API_URL}:3000/${key}`, requestOptions);
     if (res.ok){
       logger.info('CronJob: saveRate Successed - Rate: '+ rate);
       return true;
@@ -32,7 +31,7 @@ async function saveRate(from, to, rate) {
 async function convertFromFixer(from, to, amount) {
   let myHeaders = new Headers();
   myHeaders.append("apikey", process.env.FIXER_API_KEY);
-  
+
   let requestOptions = {
     method: 'GET',
     redirect: 'follow',

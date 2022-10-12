@@ -2,4 +2,5 @@ node_modules
 logs
 package-lock.json
 .devcontainer
-.env
+*/.env
+*/redis-data/dump.rdb
