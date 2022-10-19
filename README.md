@@ -7,6 +7,10 @@ A telegram bot that convert CAD to HKD.
 * Automatic exchange rates update
 * Provide amount after sales tax 
 
+## Live Demo
+
+* https://t.me/cad_convert_bot
+
 ## Deploy
 
 * Create .env files
