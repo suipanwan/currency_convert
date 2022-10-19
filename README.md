@@ -12,7 +12,7 @@ A telegram bot that convert CAD to HKD.
 * Create .env files
   > api/.env
     ```javascipt
-    FIXER_API_KEY = "YOUR_FIXER_API_KEY"
+    FIXER_API_KEY = "YOUR_FIXER_API_KEY"  //sign up at https://fixer.io/
     API_URL = 'localhost'
     REDIS_URL = 'redissever'
     ```
