@@ -2,19 +2,21 @@ pipeline {
     agent any
 
     stages {
+        stage('Verify') {
+            steps {
+              sh '''
+                docker version
+                docker info
+                docker compose version
+              '''
+            }
+        }
+    }
+
+    stages {
         stage('Build') {
             steps {
-                echo 'Building..'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
+              echo 'Building..'
             }
         }
     }
