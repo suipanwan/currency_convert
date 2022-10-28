@@ -1,8 +1,11 @@
 pipeline {
-    agent any
+    agent none
 
     stages {
         stage('Verify') {
+            agent{
+              docker { image 'docker:20.10.20'}
+            }
             steps {
               sh '''
                 docker version
@@ -13,6 +16,9 @@ pipeline {
         }
 
         stage('Build') {
+            agent{
+              docker { image 'node:19-alpine'}
+            }
             steps {
               echo 'Building..'
             }
