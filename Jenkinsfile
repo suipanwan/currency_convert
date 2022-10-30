@@ -1,26 +1,14 @@
 pipeline {
-    agent none
+    agent any
 
     stages {
-        stage('Verify') {
-            agent{
-              docker { image 'docker:20.10.20'}
-            }
+        stage('Build image') {
             steps {
-              sh '''
-                docker version
-                docker info
-                docker compose version
-              '''
-            }
-        }
-
-        stage('Build') {
-            agent{
-              docker { image 'node:19-alpine'}
-            }
-            steps {
-              echo 'Building..'
+                echo 'Starting to build docker image DB'
+                script {
+                    def DB = docker.build("cc_api:${env.BUILD_ID}","./api")
+                    def php = docker.build("cc_tg_bot:${env.BUILD_ID}","./tg_bot") 
+                }
             }
         }
     }
